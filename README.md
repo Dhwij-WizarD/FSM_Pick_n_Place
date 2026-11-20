@@ -12,10 +12,8 @@ The core objective of this project is autonomous clearing and manipulation: the 
 
 ## Demonstration
 
-![Demo](assets/Arm.mp4)
-
-*(If the embedded player does not load in your browser, view the demo directly at [assets/Arm.mp4](assets/Arm.mp4).)*
-
+![Demo](assets/Arm.gif)
+*(Full-resolution video available at [assets/Arm.mp4](assets/Arm.mp4).)*
 ---
 
 ## Pipeline Architecture
@@ -64,11 +62,18 @@ flowchart TD
 
 - **Jacobian Inverse Kinematics (IK):**
   - Numerical Jacobian control computed via `mujoco.mj_jacSite`:
-    $$\mathbf{J} = \begin{bmatrix} \mathbf{J}_p \\ \mathbf{J}_r \end{bmatrix} \in \mathbb{R}^{6 \times 7}$$
+
+    $$
+    \mathbf{J} = \begin{bmatrix} \mathbf{J}_p \\ \mathbf{J}_r \end{bmatrix} \in \mathbb{R}^{6 \times 7}
+    $$
+
   - Full 6-DOF tracking (position error $\mathbf{e}_p \in \mathbb{R}^3$ and orientation rotation-vector error $\mathbf{e}_r \in \mathbb{R}^3$).
-  - Dynamic error clipping ($\pm 0.05\text{ m/rad}$) and singularity / rank-deficiency detection ($\operatorname{rank}(\mathbf{J}) < 6$).
+  - Dynamic error clipping ($\pm 0.05\text{ m/rad}$) and singularity / rank-deficiency detection ($\text{rank}(\mathbf{J}) \lt 6$).
   - Coriolis and gravity compensation applied to arm joints:
-    $$\boldsymbol{\tau}_{\text{applied}} = \boldsymbol{\tau}_{\text{bias}}$$
+
+    $$
+    \boldsymbol{\tau}_{\text{applied}} = \boldsymbol{\tau}_{\text{bias}}
+    $$
 
 - **Robust Grasp Verification & Physics Settling:**
   - Double-contact grasp verification (`is_grasped`): checks simulation contact pairs to ensure both `left_finger` and `right_finger` maintain contact with the object before lifting.
