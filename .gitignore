@@ -39,6 +39,7 @@ venv.bak/
 *.mjb
 recordings/
 *.mp4
+!assets/Arm.mp4
 *.avi
 *.mov
 *.webm
