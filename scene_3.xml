@@ -1,0 +1,72 @@
+<mujoco model="franka_tamp_scene">
+    <compiler angle="radian" meshdir="assets" autolimits="true" />
+    <option gravity="0 0 -9.81" integrator="RK4" timestep="0.002" />
+
+    <visual>
+        <global fovy="45" />
+    </visual>
+
+    <statistic center="0.5 0 0.4" extent="1.2" />
+
+    <include file="panda.xml" />
+
+    <worldbody>
+        <light pos="0 0 3" dir="0 0 -1" diffuse="1 1 1" />
+        <geom name="floor" type="plane" size="2 2 .1" rgba=".2 .2 .2 1" />
+
+        <!-- Front-elevated camera matching Image 2 -->
+        <camera name="front_view"
+                pos="0.5 -1.8 1.6"
+                xyaxes="1 0 0 0 0.6 0.8"
+                fovy="45" />
+
+        <body name="table" pos="0.5 0 0.2">
+            <geom type="box" size="0.4 0.5 0.2" rgba=".4 .3 .2 1" friction="1 0.005 0.0001" />
+        </body>
+
+        <body name="dish" pos="0.5 0 0.4">
+            <geom type="cylinder" size="0.1 0.01" rgba="0.8 0.8 0.8 1" mass="0.5" />
+        </body>
+
+        <body name="red_box" pos="0.4 -0.2 0.5">
+            <freejoint name="red_box_joint" />
+            <geom type="box" size="0.02 0.02 0.02" rgba="1 0 0 1" mass="0.2"
+                friction="2.0 0.1 0.02" condim="4"
+                solimp="0.998 0.998 0.02" solref="0.001 1"
+                priority="1" />
+        </body>
+
+        <body name="green_box3" pos="0.4 -0.2 0.6">
+            <freejoint name="green_box_joint3" />
+            <geom type="box" size="0.02 0.02 0.02" rgba="0 1 0 1" mass="0.2"
+                friction="2.0 0.1 0.02" condim="4"
+                solimp="0.998 0.998 0.02" solref="0.001 1"
+                priority="1" />
+        </body>
+
+        <body name="green_box1" pos="0.5 0.05 0.5">
+            <freejoint name="green_box_joint1" />
+            <geom type="box" size="0.02 0.02 0.02" rgba="0 1 0 1" mass="0.2"
+                friction="2.0 0.1 0.02" condim="4"
+                solimp="0.998 0.998 0.02" solref="0.001 1"
+                priority="1" />
+        </body>
+
+        <body name="green_box2" pos="0.5 -0.2 0.5">
+            <freejoint name="green_box_joint2" />
+            <geom type="box" size="0.02 0.02 0.02" rgba="0 1 0 1" mass="0.2"
+                friction="2.0 0.1 0.02" condim="4"
+                solimp="0.998 0.998 0.02" solref="0.001 1"
+                priority="1" />
+        </body>
+
+        <!-- Waypoint visualisation markers -->
+        <!-- wp1: lift up      → red    -->
+        <!-- wp2: move horiz   → yellow -->
+        <!-- wp3: lower down   → blue   -->
+        <site name="wp1" pos="0 0 -1" size="0.025" rgba="1.0 0.8 0.2 0.8" type="sphere"/>
+        <site name="wp2" pos="0 0 -1" size="0.025" rgba="1.0 0.8 0.0 0.8" type="sphere"/>
+        <site name="wp3" pos="0 0 -1" size="0.025" rgba="1.0 0.8 0.0 0.8" type="sphere"/>
+
+    </worldbody>
+</mujoco>
